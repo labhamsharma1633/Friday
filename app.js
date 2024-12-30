@@ -24,15 +24,17 @@ const recognition=new SpeechRecognition();
 // const recognition = new SpeechRecognition(); is like giving your web page the ability to hear you! Everything else makes it listen, react, and show you what it heard.
 
 recognition.onstart=function(){
+    
     console.log("vractive");
 };
 // When the microphone starts listening, it prints "VR Active" to the console.
 
-recognition.onend=function(){
+recognition.onend=function(event){
+    
     console.log("vr deactive");      //When the microphone stops listening, it prints "VR Deactive" to the console.
 };
 
-recognition.continuous=true;     // Keep listening for speech even after pauses
+//recognition.continuous=true;     // Keep listening for speech even after pauses
 
 startBtn.addEventListener("click",()=>{
     recognition.start();    // Start listening when the "Start" button is clicked
@@ -48,8 +50,11 @@ stopBtn.addEventListener("click",()=>{
 
 function readOut(message){  // Create a new SpeechSynthesisUtterance object to hold the speech details
     const speech=new SpeechSynthesisUtterance();
+    // how we get different voices;
+    const allVoices=speechSynthesis.getVoices();
 
     speech.text=message; // Set the message (text) that will be spoken
+    speech.voice=allVoices[30];    // Sets the speech synthesis voice to the 31st voice in the 'allVoices' array.
     speech.volume=1;     // Set the volume of the speech (1 is the loudest)
     
     window.speechSynthesis.speak(speech);   // Use the browser's speech synthesis to speak the message
@@ -57,3 +62,15 @@ function readOut(message){  // Create a new SpeechSynthesisUtterance object to h
 
     
 }
+
+speakBtn.addEventListener("click",()=>{
+    readOut("hello my dear entusiastic devs on our planet");
+
+// This code sets up an event listener on the 'speakBtn' button. 
+// When the button is clicked, it triggers the 'readOut' function, 
+// passing a specific string as an argument to be processed, 
+// which could involve reading the string aloud or another action defined in the 'readOut' function.
+
+})
+
+
